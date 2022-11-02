@@ -1,16 +1,15 @@
-const express = require('express');
+require('dotenv').config();
 const {Pool} = require('pg');
 
 const pgPool = new Pool({
-    host: 'localhost',
-    user: 'israel',
-    port: 5432,
-    password: 'rootUser',
-    database: 'lagos_color_fest'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+    rejectUnauthorized: false
+}
 });
 
 const createEntry = {
-    
+
 }
 
 module.exports={
