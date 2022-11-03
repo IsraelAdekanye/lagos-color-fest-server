@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 app.use(express.json())
 app.use(cors({
-    origin: '*'
+    origin: 'https://lagos-color-fest.vercel.app'
 }));
 
 app.use('/register', cors(), attendeeRegRouter);
