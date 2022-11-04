@@ -418,8 +418,8 @@ ul.social li{
         //     VALUES ('${firstName}', '${lastName}', '${email}', '${phoneNumber}', '${gender}' ) RETURNING *`);
         // res.status(200).json(rows)
         // console.log(rows)
-        // const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender, uuid });
-        // res.status(200).json(attendee);
+        const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender, uuid });
+        res.status(200).json(attendee);
         //console.log(uuid)
 
         const transporter = nodemailer.createTransport({
