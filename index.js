@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 app.use(express.json())
 app.use(cors({
-    origin: process.env.ORIGIN_DEV
+    origin: process.env.ORIGIN
 }));
 
 app.use('/register', cors(), attendeeRegRouter);
