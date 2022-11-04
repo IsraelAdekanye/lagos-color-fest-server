@@ -417,35 +417,35 @@ ul.social li{
         const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender });
         res.status(200).json(attendee);
 
-        const transporter = nodemailer.createTransport({
-            // service: 'outlook',
-            host: 'mail.privateemail.com',
-            port: '465',
-            secure: true,
-            auth:{
-                user: process.env.MAIL_USERNAME,
-                pass: process.env.MAIL_PASSWORD
-            },
-            tls:{
-                rejectUnauthorized: false
-            }
-        })
+        // const transporter = nodemailer.createTransport({
+        //     // service: 'outlook',
+        //     host: 'mail.privateemail.com',
+        //     port: '465',
+        //     secure: true,
+        //     auth:{
+        //         user: process.env.MAIL_USERNAME,
+        //         pass: process.env.MAIL_PASSWORD
+        //     },
+        //     tls:{
+        //         rejectUnauthorized: false
+        //     }
+        // })
 
-        const options = {
-            from: `'Lagos Color Fest' <registration@lagoscolourentertainment.com>`,
-            to: email,
-            subject: 'Registration Confirmation',
-            text: 'Hello There!',
-            html: mailContent
-        }
+        // const options = {
+        //     from: `'Lagos Color Entertainment' <registration@lagoscolourentertainment.com>`,
+        //     to: email,
+        //     subject: 'Registration Confirmation',
+        //     text: 'Hello There!',
+        //     html: mailContent
+        // }
 
-        transporter.sendMail(options, (error, info)=>{
-            if (error) {
-                return console.log(error);
-            }
-            console.log('Message Sent: %s', info.messageId, info.response);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-        })
+        // transporter.sendMail(options, (error, info)=>{
+        //     if (error) {
+        //         return console.log(error);
+        //     }
+        //     console.log('Message Sent: %s', info.messageId, info.response);
+        //     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        // })
     } catch (error) {
         res.status(400).json({error: error.message})
         console.log(error)
