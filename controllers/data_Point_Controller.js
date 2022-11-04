@@ -328,7 +328,7 @@ ul.social li{
             	<tr>
 			          <td style="text-align: center;">
 			          	<div class="text-author">
-				          	<img src= ${"/lagoscolorfestdp1.png"} alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
+				          	<img src="cid:lce_logo" alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
 				          	<h3 class="name">Access Code</h3>
 				          	<span class="position">(uuid)</span>
 							<br/>
@@ -407,6 +407,7 @@ ul.social li{
 </body>
 </html>
     `
+    
     //Add new row to DB
 
     try {
@@ -432,11 +433,18 @@ ul.social li{
         // })
 
         // const options = {
-        //     from: `'Lagos Color Entertainment' <registration@lagoscolourentertainment.com>`,
+        //     from: `Lagos Color Entertainment <registration@lagoscolourentertainment.com>`,
         //     to: email,
         //     subject: 'Registration Confirmation',
         //     text: 'Hello There!',
-        //     html: mailContent
+        //     html: mailContent,
+        //     attachments: [
+        //         {
+        //         filename: 'image.png',
+        //         path: __dirname+'/image.png',
+        //         cid: 'lce_logo'
+        //         }
+        //     ]
         // }
 
         // transporter.sendMail(options, (error, info)=>{
