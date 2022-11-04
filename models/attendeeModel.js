@@ -32,6 +32,11 @@ const attendeesSchema = new Schema({
     type: String,
     required: true,
     uppercase: true
+  },
+  uuid: {
+    type: String,
+    required: true,
+    trim: true
   } 
 }, {timestamps: true});
 

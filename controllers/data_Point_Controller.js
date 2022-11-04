@@ -5,9 +5,10 @@ require('dotenv').config();
 
 // CREATE NEW PARENT RECORD
 const creatAttendee = async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, gender
+    const { firstName, lastName, email, phoneNumber, gender, uuid
     } = req.body
 
+    //src="cid:lce_logo"
     const mailContent = `
     <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -321,7 +322,7 @@ ul.social li{
             		<td style="padding: 0 2.5em; text-align: center; padding-bottom: 3em;">
             			<div class="text">
             				<h2>You're good to go!<br/>
-								Here's your Ticket to <br/><b>The Experience.</b></h2>
+								Here's your Ticket to <b>Lagoscolor Fest22.</b></h2>
             			</div>
             		</td>
             	</tr>
@@ -329,18 +330,20 @@ ul.social li{
 			          <td style="text-align: center;">
 			          	<div class="text-author">
 				          	<img src="cid:lce_logo" alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
-				          	<h3 class="name">Access Code</h3>
-				          	<span class="position">(uuid)</span>
-							<br/>
-							<h3 class="name">Date & TIme</h3>
-							<span class="position">Friday, December 2, 2022.<br/>
-							7PM (WAT)</span>
-							<br/>
-							<h3 class="name">Venue</h3>
-							<span class="position">Tafawa Balewa Square</span>
-				           	<p><a href="#" class="btn btn-primary">Confirm Attendance</a></p>
+				          	<h3 class="name">Reservation ID</h3>
+				          	<span class="position">${uuid}</span>
+							  <br/><br/>
+							<h3 class="name">Date & Time</h3>
+							<span class="position">Saturday, December 3, 2022.<br/>
+							12PM (WAT)</span>
+							<br/><br/>
+							<!-- <h3 class="name">Venue</h3>
+							<span class="position">Tafawa Balewa Square</span> -->
+				           	<!-- <p><a href="#" class="btn btn-primary">Confirm Attendance</a></p> -->
 				           	<!-- <p><a href="#" class="btn-custom">Ignore Request</a></p> -->
 			           	</div>
+						   <span class="position">Do you have questions about this event?<br/></span>
+						   <p><a href="https://linktr.ee/lagoscolorfest" class="btn btn-primary">Contact the Organizer</a>
 			          </td>
 			        </tr>
             </table>
@@ -351,7 +354,7 @@ ul.social li{
       <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
       	<tr>
           <td valign="middle" class="bg_light footer email-section">
-            <table>
+            <!-- <table>
             	<tr>
                 <td valign="top" width="33.333%" style="padding-top: 20px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -392,12 +395,12 @@ ul.social li{
                   </table>
                 </td>
               </tr>
-            </table>
+            </table> -->
           </td>
         </tr><!-- end: tr -->
         <tr>
           <td class="bg_light" style="text-align: center;">
-          	<p>You are receiving this mail because you registered! <br/>You can <a href="#" style="color: rgba(0,0,0,.8);">Unsubscribe here</a></p>
+          	<p>You are receiving this mail because you registered!</p>
           </td>
         </tr>
       </table>
@@ -415,45 +418,46 @@ ul.social li{
         //     VALUES ('${firstName}', '${lastName}', '${email}', '${phoneNumber}', '${gender}' ) RETURNING *`);
         // res.status(200).json(rows)
         // console.log(rows)
-        const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender });
-        res.status(200).json(attendee);
+        // const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender, uuid });
+        // res.status(200).json(attendee);
+        //console.log(uuid)
 
-        // const transporter = nodemailer.createTransport({
-        //     // service: 'outlook',
-        //     host: 'mail.privateemail.com',
-        //     port: '465',
-        //     secure: true,
-        //     auth:{
-        //         user: process.env.MAIL_USERNAME,
-        //         pass: process.env.MAIL_PASSWORD
-        //     },
-        //     tls:{
-        //         rejectUnauthorized: false
-        //     }
-        // })
+        const transporter = nodemailer.createTransport({
+            // service: 'outlook',
+            host: 'mail.privateemail.com',
+            port: '465',
+            secure: true,
+            auth:{
+                user: process.env.MAIL_USERNAME,
+                pass: process.env.MAIL_PASSWORD
+            },
+            tls:{
+                rejectUnauthorized: false
+            }
+        })
 
-        // const options = {
-        //     from: `Lagos Color Entertainment <registration@lagoscolourentertainment.com>`,
-        //     to: email,
-        //     subject: 'Registration Confirmation',
-        //     text: 'Hello There!',
-        //     html: mailContent,
-        //     attachments: [
-        //         {
-        //         filename: 'image.png',
-        //         path: __dirname+'/image.png',
-        //         cid: 'lce_logo'
-        //         }
-        //     ]
-        // }
+        const options = {
+            from: `Lagos Color Entertainment <registration@lagoscolourentertainment.com>`,
+            to: email,
+            subject: 'Registration Confirmation',
+            text: 'Hello There!',
+            html: mailContent,
+            attachments: [
+                {
+                filename: 'image.png',
+                path: __dirname+'/image.png',
+                cid: 'lce_logo'
+                }
+            ]
+        }
 
-        // transporter.sendMail(options, (error, info)=>{
-        //     if (error) {
-        //         return console.log(error);
-        //     }
-        //     console.log('Message Sent: %s', info.messageId, info.response);
-        //     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-        // })
+        transporter.sendMail(options, (error, info)=>{
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message Sent: %s', info.messageId, info.response);
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        })
     } catch (error) {
         res.status(400).json({error: error.message})
         console.log(error)
