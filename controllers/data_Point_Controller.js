@@ -418,46 +418,46 @@ ul.social li{
         //     VALUES ('${firstName}', '${lastName}', '${email}', '${phoneNumber}', '${gender}' ) RETURNING *`);
         // res.status(200).json(rows)
         // console.log(rows)
-        const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender, uuid });
-        res.status(200).json(attendee);
+        // const attendee = await Attendee.create({ firstName, lastName, email, phoneNumber, gender, uuid });
+        // res.status(200).json(attendee);
         //console.log(uuid)
 
-        const transporter = nodemailer.createTransport({
-            // service: 'outlook',
-            host: 'mail.privateemail.com',
-            port: '465',
-            secure: true,
-            auth:{
-                user: process.env.MAIL_USERNAME,
-                pass: process.env.MAIL_PASSWORD
-            },
-            tls:{
-                rejectUnauthorized: false
-            }
-        })
+        // const transporter = nodemailer.createTransport({
+        //     // service: 'outlook',
+        //     host: 'mail.privateemail.com',
+        //     port: '465',
+        //     secure: true,
+        //     auth:{
+        //         user: process.env.MAIL_USERNAME,
+        //         pass: process.env.MAIL_PASSWORD
+        //     },
+        //     tls:{
+        //         rejectUnauthorized: false
+        //     }
+        // })
 
-        const options = {
-            from: `Lagos Color Entertainment <registration@lagoscolourentertainment.com>`,
-            to: email,
-            subject: 'Registration Confirmation',
-            text: 'Hello There!',
-            html: mailContent,
-            attachments: [
-                {
-                filename: 'image.png',
-                path: __dirname+'/image.png',
-                cid: 'lce_logo'
-                }
-            ]
-        }
+        // const options = {
+        //     from: `Lagos Color Entertainment <registration@lagoscolourentertainment.com>`,
+        //     to: email,
+        //     subject: 'Registration Confirmation',
+        //     text: 'Hello There!',
+        //     html: mailContent,
+        //     attachments: [
+        //         {
+        //         filename: 'image.png',
+        //         path: __dirname+'/image.png',
+        //         cid: 'lce_logo'
+        //         }
+        //     ]
+        // }
 
-        transporter.sendMail(options, (error, info)=>{
-            if (error) {
-                return console.log(error);
-            }
-            console.log('Message Sent: %s', info.messageId, info.response);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-        })
+        // transporter.sendMail(options, (error, info)=>{
+        //     if (error) {
+        //         return console.log(error);
+        //     }
+        //     console.log('Message Sent: %s', info.messageId, info.response);
+        //     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        // })
     } catch (error) {
         res.status(400).json({error: error.message})
         console.log(error)
