@@ -471,8 +471,8 @@ const getAttendees = async (req, res) => {
     try {
         // const {rows} = await pgPool.query(`SELECT * FROM attendees`);
         // res.status(200).send([rows])
-        const attendees = await Attendee.find({});
-        res.status(200).json(attendees)
+        //const attendees = await Attendee.find({});
+        //res.status(200).json(attendees)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
