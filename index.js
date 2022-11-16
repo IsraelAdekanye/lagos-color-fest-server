@@ -24,7 +24,8 @@ app.use((req, res, next) => {
 })
 app.use(express.json())
 app.use(cors({
-    origin: process.env.ORIGIN
+    origin: 'https://oyster-app-dik6k.ondigitalocean.app'
+    //process.env.ORIGIN
 }));
 
 app.use('/register', cors(), attendeeRegRouter);
